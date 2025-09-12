@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.WebEndpoint;
 
@@ -24,6 +25,11 @@ public class JournalApplication {
     @Bean
     public PlatformTransactionManager transactionManager(MongoDatabaseFactory dbFac) {
         return new MongoTransactionManager(dbFac);
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return  new RestTemplate();
     }
     //PlatformTransactionManager
     //MongoTransactionManager  implements the PlatformTransactionManager interface

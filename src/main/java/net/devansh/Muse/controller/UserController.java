@@ -1,8 +1,10 @@
 package net.devansh.Muse.controller;
 
+import net.devansh.Muse.api.response.WeatherRespnse;
 import net.devansh.Muse.entity.User;
 import net.devansh.Muse.repository.UserRepository;
 import net.devansh.Muse.service.UserService;
+import net.devansh.Muse.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private WeatherService weatherService;
 
 
     @PutMapping
@@ -45,7 +49,12 @@ public class UserController {
     public ResponseEntity<?> greeting(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        return new ResponseEntity<>("Hello " + userName + ", welcome to Muse!", HttpStatus.OK);
+        WeatherRespnse weatherRespnse = weatherService.getWeather("Indore");
+        String greeting = "";
+        if(weatherRespnse != null){
+            greeting = "Weather feels like " + weatherRespnse.getCurrent().getFeelslikeC();
+        }
+        return new ResponseEntity<>("Hello " + userName + ", welcome to Muse!" +  greeting, HttpStatus.OK);
 
     }
 
