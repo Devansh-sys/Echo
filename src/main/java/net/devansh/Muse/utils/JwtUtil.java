@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -57,5 +58,10 @@ public class JwtUtil {
 
     public Boolean validateToken(String token) {
         return !isTokenExpired(token);
+    }
+
+    public List<String> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        return (List<String>)claims.get("roles", List.class);
     }
 }
