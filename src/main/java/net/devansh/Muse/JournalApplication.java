@@ -26,11 +26,12 @@ public class JournalApplication {
     public PlatformTransactionManager transactionManager(MongoDatabaseFactory dbFac) {
         return new MongoTransactionManager(dbFac);
     }
+    //PlatformTransactionManager
+    //MongoTransactionManager  implements the PlatformTransactionManager interface
 
     @Bean
     public RestTemplate restTemplate(){
         return  new RestTemplate();
     }
-    //PlatformTransactionManager
-    //MongoTransactionManager  implements the PlatformTransactionManager interface
+
 }
